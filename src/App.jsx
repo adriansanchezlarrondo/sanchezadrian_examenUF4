@@ -1,12 +1,20 @@
-import Header from "./context/Header"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from "./componentes/Header"
+import Home from './vistas/Home';
+import Ranking from './vistas/Ranking';
 
 function App() {
 
   return (
-    <>
-      <Header ></Header>
-      <h1 className="mt-5 bg-white">hola</h1>
-    </>
+    <Router>
+      
+      <Header></Header>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/ranking" element={<Ranking />} />
+      </Routes>
+    </Router>
   )
 }
 
