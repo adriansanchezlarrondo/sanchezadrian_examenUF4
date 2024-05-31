@@ -3,17 +3,37 @@ import { useState, useContext, createContext } from "react";
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-    const [ dades, setDades ] = useState([])
+    const [ pendientes, setPendientes ] = useState([])
+    const [ resueltos, setResueltos ] = useState([])
 
-    const obtenerTicket = async () => {
+    const obtenerTicketPendientes = async () => {
         try {
-            const response = await fetch('https://json-server-examen-uf-4.vercel.app/tickets', { method: 'GET' })
+            const response = await fetch('https://json-server-examen-uf-4.vercel.app/ticketsPendientes', { method: 'GET' })
             
             const data = await response.json();
 
             console.log('data', data);
             if (Array.isArray(data) ) {
-                setDades(data);
+                setPendientes(data);
+            } else {
+                console.error('Data is not an array:', data);
+            }
+
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    const obtenerTicketResueltos = async () => {
+        try {
+            const response = await fetch('https://json-server-examen-uf-4.vercel.app/ticketsResueltos', { method: 'GET' })
+            
+            const data = await response.json();
+
+            console.log('data', data);
+            if (Array.isArray(data) ) {
+                setResueltos(data);
             } else {
                 console.error('Data is not an array:', data);
             }
@@ -84,7 +104,7 @@ export const GlobalProvider = ({ children }) => {
     // }
 
     return (
-        <GlobalContext.Provider value={{ dades, setDades, obtenerTicket }}> 
+        <GlobalContext.Provider value={{ pendientes, setPendientes,resueltos, setResueltos, obtenerTicketPendientes, obtenerTicketResueltos }}> 
             {children}
         </GlobalContext.Provider>
     )    

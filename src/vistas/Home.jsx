@@ -5,16 +5,17 @@ import TablaResueltos from "../componentes/TablaResueltos";
 import { useGlobalContext } from "../context/GlobalContext";
 
 export default function Home() {
-    const { dades, obtenerTicket } = useGlobalContext()
-    const [ pendientes, setPendientes] = useState([])
-    const [ resueltos, setResueltos] = useState([])
+    const { pendientes, resueltos, obtenerTicketPendientes, obtenerTicketResueltos } = useGlobalContext()
+    // const [ pendientes, setPendientes] = useState([])
+    // const [ resueltos, setResueltos] = useState([])
     
     useEffect(() => {
         async function getTickets() {
-            await obtenerTicket()
+            await obtenerTicketPendientes()
+            await obtenerTicketResueltos()
 
-            setPendientes(dades[0]?.ticketsPendientes);
-            setResueltos(dades[1]?.ticketsResueltos);
+            // setPendientes(dades[0]?.ticketsPendientes);
+            // setResueltos(dades[1]?.ticketsResueltos);
         }
         
         getTickets()
