@@ -1,17 +1,6 @@
-// import { useEffect } from "react"
 import { Link } from "react-router-dom"
-// import { useGlobalContext } from "../context/GlobalContext"
 
 export default function Header() {
-    // const { titulo, setTitulo } = useGlobalContext()
-
-    // useEffect(() => {
-    //     function ponerTitulo() {
-    //         setTitulo('Adrian')
-    //     }
-    
-    //     ponerTitulo()    
-    // }, [])
 
     return (
         <div className="bg-secondary-subtle d-flex justify-content-between align-items-center px-5">

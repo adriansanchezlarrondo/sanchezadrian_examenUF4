@@ -1,42 +1,31 @@
-import { useState, useEffect } from "react"
+// import { useState, useEffect } from "react"
 // import { useGlobalContext } from "../context/GlobalContext"
 
-export default function TablaPendientes() {
-    // const { dades, setDades } = useGlobalContext()
-    const [ pendientes, setPendientes] = useState([])
+export default function TablaPendientes({ pendientes }) {
+    // const { dades, obtenerTicket } = useGlobalContext()
+    // const [ pendientes, setPendientes] = useState([])
     
-    useEffect(() => {
-        const obtenerTicketPendiente = async () => {
-            try {
-                const response = await fetch('https://json-server-examen-uf-4.vercel.app/ticketsPendientes', { method: 'GET' }).then(res => res.json())
-                const data = await Promise.all(response)
-                console.log('pendientes', data);
+    // useEffect(() => {
+    //     async function getTicketsPendientes() {
+    //         await obtenerTicket()
 
-                if (Array.isArray(data)) {
-                    setPendientes(data);
-                } else {
-                    console.error('Data is not an array:', data);
-                }
-    
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
-        obtenerTicketPendiente()
-    }, [])
+    //         // setPendientes(dades[0].ticketsPendientes);
+    //     }
+        
+    //     getTicketsPendientes()
+    // }, [])
 
     async function borrarTicket(id) {
         console.log('codigo/id', id);
 
         try {
-            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/ticketsPendientes/${id}`, { method: 'DELETE' })//.then(res => res.json())
+            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/tickets/${id}`, { method: 'DELETE' })//.then(res => res.json())
 
             if (!response.ok) {
                 throw new Error('Error al borrar ticket');
             }
                 
-            setPendientes(prevdades => prevdades.filter(dato => dato.id !== id));
+            // setPendientes(prevdades => prevdades.filter(dato => dato.id !== id));
 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -65,7 +54,7 @@ export default function TablaPendientes() {
                     </tr>
                 </thead>
                 <tbody>
-                    {pendientes.map((pendiente, index) => (
+                    {pendientes?.map((pendiente, index) => (
                         <tr key={index}>
                             <td>{pendiente.codigo}</td>
                             <td>{pendiente.fecha}</td>
