@@ -1,15 +1,15 @@
 import { useState, useContext, createContext } from "react";
+import tickets from '../ticket.json'
 
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-    const [ titulo, setTitulo ] = useState('')
-    const [ historias, setHistorias ] = useState([]) // ME GUARDO EL JSON ENTERO PARA HACER LAS CARTAS
-    const [ dataHistoria, setDataHistoria ] = useState() // historia formulario
+    const [ dades, setDades ] = useState(tickets) // ME GUARDO EL JSON ENTERO PARA HACER LAS CARTAS
+    const [ dataHistoria, setDataHistoria]  = useState()
 
     const actualizarHistoria = async (dataHistoria) => {
         try {
-            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/historias/${dataHistoria.id}`, {
+            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/dades/${dataHistoria.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -22,21 +22,21 @@ export const GlobalProvider = ({ children }) => {
             }
 
             const data = await response.json()
-            console.log('Historia actualizada:', data)
+            console.log('Dato actualizada:', data)
 
             await obtenerHistoria();
         } catch (error) {
-            console.error('Error actualizando la historia:', error)
+            console.error('Error actualizando la dato:', error)
         }
     }
 
     const obtenerHistoria = async () => {
         try {
-            const response = await fetch('https://json-server-examen-uf-4.vercel.app/historias', { method: 'GET' });
+            const response = await fetch('https://json-server-examen-uf-4.vercel.app/dades', { method: 'GET' });
             const data = await response.json();
             
             if (Array.isArray(data)) {
-                setHistorias(data);
+                setDades(data);
             } else {
                 console.error('Data is not an array:', data);
             }
@@ -49,13 +49,13 @@ export const GlobalProvider = ({ children }) => {
 
     const borrarHistoria = async (id) => {
         try {
-            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/historias/${id}`, { method: 'DELETE' });
+            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/dades/${id}`, { method: 'DELETE' });
             
             if (!response.ok) {
-                throw new Error('Error al borrar la historia');
+                throw new Error('Error al borrar la dato');
             }
                 
-            setHistorias(prevHistorias => prevHistorias.filter(historia => historia.id !== id));
+            setDades(prevdades => prevdades.filter(dato => dato.id !== id));
         } catch (error) {
             console.error('Error:', error);
         }
@@ -63,7 +63,7 @@ export const GlobalProvider = ({ children }) => {
 
     const anadirHistoria = async ()  =>{
         try {
-            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/historias`, { 
+            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/dades`, { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -73,10 +73,10 @@ export const GlobalProvider = ({ children }) => {
             
             if (response.ok) {
                 const data = await response.json();
-                setHistorias(prevHistorias => [...prevHistorias, data]);
-                console.log('Historia añadida:', data);
+                setDades(prevdades => [...prevdades, data]);
+                console.log('Dato añadida:', data);
             } else {
-                console.error('Error al borrar la historia');
+                console.error('Error al borrar la dato');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -85,10 +85,7 @@ export const GlobalProvider = ({ children }) => {
 
 
     return (
-        <GlobalContext.Provider value={{ titulo, setTitulo, 
-                                        obtenerHistoria, actualizarHistoria, borrarHistoria, anadirHistoria,
-                                        historias, setHistorias,
-                                        dataHistoria, setDataHistoria }}>
+        <GlobalContext.Provider value={{ dades, setDades, obtenerHistoria, actualizarHistoria, borrarHistoria, anadirHistoria }}>
             {children}
         </GlobalContext.Provider>
     )    

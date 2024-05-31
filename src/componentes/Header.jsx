@@ -1,35 +1,45 @@
-import { useEffect } from "react"
+// import { useEffect } from "react"
 import { Link } from "react-router-dom"
-import { useGlobalContext } from "../context/GlobalContext"
+// import { useGlobalContext } from "../context/GlobalContext"
 
 export default function Header() {
-    const { titulo, setTitulo } = useGlobalContext()
+    // const { titulo, setTitulo } = useGlobalContext()
 
-    useEffect(() => {
-        function ponerTitulo() {
-            setTitulo('Adrian')
-        }
+    // useEffect(() => {
+    //     function ponerTitulo() {
+    //         setTitulo('Adrian')
+    //     }
     
-        ponerTitulo()    
-    }, [])
+    //     ponerTitulo()    
+    // }, [])
 
     return (
-        <div className="bg-info">         
-            <ul className="d-flex justify-content-around px-5 nav">
-                <li className="">
-                    <div className="nav-link text-bg-info fw-bold fs-1">{ titulo }</div>
-                </li>
-                <li className="">
-                    <Link to="/" className="nav-link text-bg-info fw-bold fs-1">
-                        Home
-                    </Link>
-                </li>
-                <li className="">
-                    <Link to="/ranking" className="nav-link text-bg-info fw-bold fs-1">
-                        Ranking
-                    </Link>
-                </li>
-            </ul>
+        <div className="bg-secondary-subtle d-flex justify-content-between align-items-center px-5">
+            <div>
+                Gestión de Incidencias FPLlefià
+            </div>
+            <div>
+                <ul className="d-flex justify-content-center px-5 nav">
+                    <li className="bg-dark p-2 m-1">
+                        <Link to="/" className="text-bg-dark text-decoration-none text-uppercase fs-5">
+                            Home
+                        </Link>
+                    </li>
+                    <li className="bg-dark p-2 m-1">
+                        <Link to="/login" className="text-bg-dark text-decoration-none text-uppercase fs-5">
+                            Login
+                        </Link>
+                    </li>
+                    <li className="bg-dark p-2 m-1">
+                        <Link to="/registro" className="text-bg-dark text-decoration-none text-uppercase fs-5">
+                            Registro
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <span>administrador@fpllefia.com</span>
+            </div>
         </div>
       )
 }
