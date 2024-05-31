@@ -14,10 +14,10 @@ export default function TablaPendientes({ pendientes }) {
             }
                 
             setPendientes(prevdades => prevdades.filter(dato => dato.id !== id));
-            await obtenerTicketPendientes()
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+        await obtenerTicketPendientes()
     }
 
 
