@@ -1,17 +1,30 @@
-import { useGlobalContext } from "../context/GlobalContext"
+import { useState, useEffect } from "react"
+// import { useGlobalContext } from "../context/GlobalContext"
 
 export default function TablaResueltos() {
-    // const { obtenerHistoria, historias } = useGlobalContext()
+    // const { dades, setDades } = useGlobalContext()
+    const [ resueltos, setResueltos] = useState([])
 
-    // useEffect(() => {
-    //     obtenerHistoria()
-    // }, [])
+    useEffect(() => {
+        const obtenerTicketResuelto = async () => {
+            try {
+                const response = await fetch('https://json-server-examen-uf-4.vercel.app/ticketsResueltos', { method: 'GET' }).then(res => res.json())
+                const data = await Promise.all(response)
+                console.log('resueltos', data);
 
-    const { dades } = useGlobalContext()
+                if (Array.isArray(data)) {
+                    setResueltos(data);
+                } else {
+                    console.error('Data is not an array:', data);
+                }
+    
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
 
-    const resueltos = dades.ticketsResueltos
-
-    console.log('resueltos', resueltos);
+        obtenerTicketResuelto()
+    }, [])
 
     return (
         <>
@@ -55,114 +68,6 @@ export default function TablaResueltos() {
                             </td>
                         </tr>
                     ))}
-                    {/* <tr>
-                        <td>123459</td>
-                        <td>18/04/2023</td>
-                        <td>T6</td>
-                        <td>DAW1</td>
-                        <td>PC3</td>
-                        <td>Error de impresora</td>
-                        <td>Ana Martínez</td>
-                        <td>
-                            <button className="btn btn-success" title="Resolver ticket">Resolver</button>
-                            </td>
-                        <td>
-                            <button className="btn btn-warning" title="Añadir comentario">
-                                <i className="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button className="btn btn-info" title="Ver comentarios">
-                                <i className="bi bi-chat-left-text"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button className="btn btn-danger" title="Eliminar ticket">
-                                <i className="bi bi-trash3"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123459</td>
-                        <td>18/04/2023</td>
-                        <td>T6</td>
-                        <td>DAW1</td>
-                        <td>PC3</td>
-                        <td>Error de impresora</td>
-                        <td>Ana Martínez</td>
-                        <td>
-                            <button className="btn btn-success" title="Resolver ticket">Resolver</button>
-                            </td>
-                        <td>
-                            <button className="btn btn-warning" title="Añadir comentario">
-                                <i className="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button className="btn btn-info" title="Ver comentarios">
-                                <i className="bi bi-chat-left-text"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button className="btn btn-danger" title="Eliminar ticket">
-                                <i className="bi bi-trash3"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123459</td>
-                        <td>18/04/2023</td>
-                        <td>T6</td>
-                        <td>DAW1</td>
-                        <td>PC3</td>
-                        <td>Error de impresora</td>
-                        <td>Ana Martínez</td>
-                        <td>
-                            <button className="btn btn-success" title="Resolver ticket">Resolver</button>
-                            </td>
-                        <td>
-                            <button className="btn btn-warning" title="Añadir comentario">
-                                <i className="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button className="btn btn-info" title="Ver comentarios">
-                                <i className="bi bi-chat-left-text"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button className="btn btn-danger" title="Eliminar ticket">
-                                <i className="bi bi-trash3"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123459</td>
-                        <td>18/04/2023</td>
-                        <td>T6</td>
-                        <td>DAW1</td>
-                        <td>PC3</td>
-                        <td>Error de impresora</td>
-                        <td>Ana Martínez</td>
-                        <td>
-                            <button className="btn btn-success" title="Resolver ticket">Resolver</button>
-                            </td>
-                        <td>
-                            <button className="btn btn-warning" title="Añadir comentario">
-                                <i className="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button className="btn btn-info" title="Ver comentarios">
-                                <i className="bi bi-chat-left-text"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button className="btn btn-danger" title="Eliminar ticket">
-                                <i className="bi bi-trash3"></i>
-                            </button>
-                        </td>
-                    </tr> */}
                 </tbody>
             </table>
         </>
