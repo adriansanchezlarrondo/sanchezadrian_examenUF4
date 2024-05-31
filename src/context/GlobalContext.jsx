@@ -8,7 +8,9 @@ export const GlobalProvider = ({ children }) => {
     const obtenerTicket = async () => {
         try {
             const response = await fetch('https://json-server-examen-uf-4.vercel.app/tickets', { method: 'GET' })
+            
             const data = await response.json();
+
             console.log('data', data);
             if (Array.isArray(data) ) {
                 setDades(data);

@@ -19,7 +19,7 @@ export default function TablaPendientes({ pendientes }) {
         console.log('codigo/id', id);
 
         try {
-            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/tickets/${id}`, { method: 'DELETE' })//.then(res => res.json())
+            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/tickets/0/${id}`, { method: 'DELETE' })//.then(res => res.json())
 
             if (!response.ok) {
                 throw new Error('Error al borrar ticket');

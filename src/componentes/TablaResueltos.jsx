@@ -15,6 +15,24 @@ export default function TablaResueltos({ resueltos }) {
     //     getTicketsResueltos()
     // }, [])
 
+    async function borrarTicket(id) {
+        console.log('codigo/id', id);
+
+        try {
+            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/tickets/1/${id}`, { method: 'DELETE' })//.then(res => res.json())
+
+            if (!response.ok) {
+                throw new Error('Error al borrar ticket');
+            }
+                
+            // setPendientes(prevdades => prevdades.filter(dato => dato.id !== id));
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+
     return (
         <>
             <h2 className="mt-5">Tickets resueltos</h2>
@@ -50,7 +68,7 @@ export default function TablaResueltos({ resueltos }) {
                                     <i className="bi bi-chat-left-text"></i>
                                 </button>
                             </td>
-                            <td>
+                            <td onClick={() => borrarTicket(resuelto.codigo)}>
                                 <button className="btn btn-danger" title="Eliminar ticket">
                                     <i className="bi bi-trash3"></i>
                                 </button>
