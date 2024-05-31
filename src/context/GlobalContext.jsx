@@ -4,7 +4,23 @@ const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
     const [ dades, setDades ] = useState([])
-    // const [ dataHistoria, setDataHistoria]  = useState()
+
+    const obtenerTicket = async () => {
+        try {
+            const response = await fetch('https://json-server-examen-uf-4.vercel.app/tickets', { method: 'GET' })
+            const data = await response.json();
+            console.log('data', data);
+            if (Array.isArray(data) ) {
+                setDades(data);
+            } else {
+                console.error('Data is not an array:', data);
+            }
+
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 
     // const actualizarTicket = async (dataHistoria) => {
     //     try {
@@ -66,7 +82,7 @@ export const GlobalProvider = ({ children }) => {
     // }
 
     return (
-        <GlobalContext.Provider value={{ dades, setDades }}> 
+        <GlobalContext.Provider value={{ dades, setDades, obtenerTicket }}> 
             {children}
         </GlobalContext.Provider>
     )    

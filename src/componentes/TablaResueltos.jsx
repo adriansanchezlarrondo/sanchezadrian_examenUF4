@@ -1,30 +1,19 @@
-import { useState, useEffect } from "react"
+// import { useState, useEffect } from "react"
 // import { useGlobalContext } from "../context/GlobalContext"
 
-export default function TablaResueltos() {
-    // const { dades, setDades } = useGlobalContext()
-    const [ resueltos, setResueltos] = useState([])
+export default function TablaResueltos({ resueltos }) {
+    // const { dades, obtenerTicket } = useGlobalContext()
+    // const [ resueltos, setResueltos] = useState([])
 
-    useEffect(() => {
-        const obtenerTicketResuelto = async () => {
-            try {
-                const response = await fetch('https://json-server-examen-uf-4.vercel.app/ticketsResueltos', { method: 'GET' }).then(res => res.json())
-                const data = await Promise.all(response)
-                console.log('resueltos', data);
+    // useEffect(() => {
+    //     async function getTicketsResueltos() {
+    //         await obtenerTicket()
 
-                if (Array.isArray(data)) {
-                    setResueltos(data);
-                } else {
-                    console.error('Data is not an array:', data);
-                }
-    
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
-        obtenerTicketResuelto()
-    }, [])
+    //         // setResueltos(dades[1].ticketsResueltos);
+    //     }
+        
+    //     getTicketsResueltos()
+    // }, [])
 
     return (
         <>
@@ -46,7 +35,7 @@ export default function TablaResueltos() {
                     </tr>
                 </thead>
                 <tbody>
-                    {resueltos.map((resuelto, index) => (
+                    {resueltos?.map((resuelto, index) => (
                         <tr key={index}>
                             <td>{resuelto.codigo}</td>
                             <td>{resuelto.fecha}</td>
