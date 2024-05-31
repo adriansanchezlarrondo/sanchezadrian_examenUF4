@@ -14,10 +14,10 @@ export default function TablaResueltos({ resueltos }) {
             }
                 
             setResueltos(prevdades => prevdades.filter(dato => dato.id !== id));
-            await obtenerTicketResueltos()
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+        await obtenerTicketResueltos()
     }
 
 
