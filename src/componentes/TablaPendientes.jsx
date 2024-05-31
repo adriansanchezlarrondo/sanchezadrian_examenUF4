@@ -1,17 +1,48 @@
-import { useGlobalContext } from "../context/GlobalContext"
+import { useState, useEffect } from "react"
+// import { useGlobalContext } from "../context/GlobalContext"
 
 export default function TablaPendientes() {
-    // const { obtenerHistoria, historias } = useGlobalContext()
+    // const { dades, setDades } = useGlobalContext()
+    const [ pendientes, setPendientes] = useState([])
+    
+    useEffect(() => {
+        const obtenerTicketPendiente = async () => {
+            try {
+                const response = await fetch('https://json-server-examen-uf-4.vercel.app/ticketsPendientes', { method: 'GET' }).then(res => res.json())
+                const data = await Promise.all(response)
+                console.log('pendientes', data);
 
-    // useEffect(() => {
-    //     obtenerHistoria()
-    // }, [])
+                if (Array.isArray(data)) {
+                    setPendientes(data);
+                } else {
+                    console.error('Data is not an array:', data);
+                }
+    
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
 
-    const { dades } = useGlobalContext()
+        obtenerTicketPendiente()
+    }, [])
 
-    const pendientes = dades.ticketsPendientes
+    async function borrarTicket(id) {
+        console.log('codigo/id', id);
 
-    console.log('pendientes', pendientes);
+        try {
+            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/ticketsPendientes/${id}`, { method: 'DELETE' })//.then(res => res.json())
+
+            if (!response.ok) {
+                throw new Error('Error al borrar ticket');
+            }
+                
+            setPendientes(prevdades => prevdades.filter(dato => dato.id !== id));
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
 
     return (
         <>
@@ -56,7 +87,7 @@ export default function TablaPendientes() {
                                     <i className="bi bi-chat-left-text"></i>
                                 </button>
                             </td>
-                            <td>
+                            <td onClick={() => borrarTicket(pendiente.codigo)}>
                                 <button className="btn btn-danger" title="Eliminar ticket">
                                     <i className="bi bi-trash3"></i>
                                 </button>
