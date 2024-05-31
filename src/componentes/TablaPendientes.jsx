@@ -1,32 +1,20 @@
-// import { useState, useEffect } from "react"
-// import { useGlobalContext } from "../context/GlobalContext"
+import { useGlobalContext } from "../context/GlobalContext";
 
 export default function TablaPendientes({ pendientes }) {
-    // const { dades, obtenerTicket } = useGlobalContext()
-    // const [ pendientes, setPendientes] = useState([])
-    
-    // useEffect(() => {
-    //     async function getTicketsPendientes() {
-    //         await obtenerTicket()
-
-    //         // setPendientes(dades[0].ticketsPendientes);
-    //     }
-        
-    //     getTicketsPendientes()
-    // }, [])
+    const { setPendientes, obtenerTicketPendientes } = useGlobalContext()
 
     async function borrarTicket(id) {
         console.log('codigo/id', id);
 
         try {
-            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/tickets/0/${id}`, { method: 'DELETE' })//.then(res => res.json())
+            const response = await fetch(`https://json-server-examen-uf-4.vercel.app/ticketsPendientes/${id}`, { method: 'DELETE' })//.then(res => res.json())
 
             if (!response.ok) {
                 throw new Error('Error al borrar ticket');
             }
                 
-            // setPendientes(prevdades => prevdades.filter(dato => dato.id !== id));
-
+            setPendientes(prevdades => prevdades.filter(dato => dato.id !== id));
+            await obtenerTicketPendientes()
         } catch (error) {
             console.error('Error fetching data:', error);
         }
