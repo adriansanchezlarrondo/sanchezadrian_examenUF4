@@ -12,7 +12,6 @@ export const GlobalProvider = ({ children }) => {
             
             const data = await response.json();
 
-            console.log('data', data);
             if (Array.isArray(data) ) {
                 setPendientes(data);
             } else {
