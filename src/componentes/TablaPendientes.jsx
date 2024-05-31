@@ -4,7 +4,7 @@ export default function TablaPendientes({ pendientes }) {
     const { setPendientes, obtenerTicketPendientes } = useGlobalContext()
 
     async function borrarTicket(id) {
-        console.log('codigo/id', id);
+        console.log('id', id);
 
         try {
             const response = await fetch(`https://json-server-examen-uf-4.vercel.app/ticketsPendientes/${id}`, { method: 'DELETE' })//.then(res => res.json())
@@ -64,7 +64,7 @@ export default function TablaPendientes({ pendientes }) {
                                     <i className="bi bi-chat-left-text"></i>
                                 </button>
                             </td>
-                            <td onClick={() => borrarTicket(pendiente.codigo)}>
+                            <td onClick={() => borrarTicket(pendiente.id)}>
                                 <button className="btn btn-danger" title="Eliminar ticket">
                                     <i className="bi bi-trash3"></i>
                                 </button>
